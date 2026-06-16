@@ -8,6 +8,7 @@ import { Logo } from '@/components/Logo'
 import { Button } from '@/components/Button'
 import { useAuth } from '@/lib/auth-context'
 import { getSession } from '@/lib/user-storage'
+import { brand } from '@/config/brand'
 
 export default function SignUpPage() {
   const router = useRouter()
@@ -62,7 +63,7 @@ export default function SignUpPage() {
           <h1 className="text-4xl font-bold leading-tight">
             Start your journey
             <br />
-            with Stacko today.
+            with {brand.name} today.
           </h1>
           <p className="max-w-md text-lg text-white/70">
             Open your account in minutes and get a 500 AED investment bonus after completing your
@@ -70,7 +71,7 @@ export default function SignUpPage() {
           </p>
         </div>
 
-        <p className="relative text-sm text-white/40">© 2026 Stacko. All rights reserved.</p>
+        <p className="relative text-sm text-white/40">{brand.copyright}</p>
       </div>
 
       <div className="flex flex-1 flex-col items-center justify-center px-6 py-12">
@@ -81,7 +82,7 @@ export default function SignUpPage() {
 
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-stacko-black">Create your account</h2>
-            <p className="mt-1 text-stacko-gray">Sign up to get started with Stacko</p>
+            <p className="mt-1 text-stacko-gray">Sign up to get started with {brand.name}</p>
           </div>
 
           {error && (

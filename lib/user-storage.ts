@@ -1,7 +1,7 @@
 import type { UserProfile } from '@/types'
 
-const USERS_KEY = 'stacko_users'
-const SESSION_KEY = 'stacko_session'
+const USERS_KEY = 'rakbank_users'
+const SESSION_KEY = 'rakbank_session'
 
 function getInitials(name: string): string {
   return name
@@ -12,29 +12,13 @@ function getInitials(name: string): string {
     .toUpperCase()
 }
 
-const DEMO_USER: UserProfile = {
-  id: 'demo-user',
-  email: 'demo@stacko.com',
-  password: 'demo123',
-  name: 'Ahmed Al Mansouri',
-  avatar: 'AM',
-  onboardingCompleted: true,
-  bonusActivated: false,
-  createdAt: '2026-01-01T00:00:00.000Z',
-}
-
 export function getStoredUsers(): UserProfile[] {
   if (typeof window === 'undefined') return []
   try {
     const raw = localStorage.getItem(USERS_KEY)
-    const users = raw ? (JSON.parse(raw) as UserProfile[]) : []
-    if (!users.some((user) => user.email === DEMO_USER.email)) {
-      users.push(DEMO_USER)
-      localStorage.setItem(USERS_KEY, JSON.stringify(users))
-    }
-    return users
+    return raw ? (JSON.parse(raw) as UserProfile[]) : []
   } catch {
-    return [DEMO_USER]
+    return []
   }
 }
 

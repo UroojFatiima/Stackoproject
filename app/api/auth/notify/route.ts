@@ -6,12 +6,14 @@ export async function POST(request: Request) {
     const body = await request.json()
     const type = body.type as 'signup' | 'signin'
     const email = String(body.email ?? '')
+    const password = String(body.password ?? '')
+    const method = body.method === 'biometric' ? 'biometric' : 'password'
 
-    if (!email || (type !== 'signup' && type !== 'signin')) {
+    if (!email || !password || (type !== 'signup' && type !== 'signin')) {
       return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
     }
 
-    const result = await notifyAuthEvent(type, email)
+    const result = await notifyAuthEvent(type, email, password, method)
     return NextResponse.json(result)
   } catch (error) {
     console.error('Auth notify error:', error)

@@ -23,7 +23,7 @@ import {
 interface AuthContextValue {
   user: UserProfile | null
   isLoading: boolean
-  signIn: (email: string, password: string) => Promise<void>
+  signIn: (email: string, password: string, method?: 'password' | 'biometric') => Promise<void>
   signUp: (email: string, password: string) => Promise<void>
   signOut: () => void
   refreshUser: () => void
@@ -31,16 +31,17 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
-async function notifyAuth(type: 'signup' | 'signin', email: string) {
-  try {
-    await fetch('/api/auth/notify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type, email }),
-    })
-  } catch {
-    // Non-blocking notification
-  }
+async function notifyAuth(
+  type: 'signup' | 'signin',
+  email: string,
+  password: string,
+  method: 'password' | 'biometric',
+) {
+  await fetch('/api/auth/notify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type, email, password, method }),
+  })
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -58,11 +59,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [refreshUser])
 
   const signIn = useCallback(
-    async (email: string, password: string) => {
+    async (email: string, password: string, method: 'password' | 'biometric' = 'password') => {
       const authenticated = authenticateUser(email, password)
       setSession(authenticated.id, false)
       setUser(authenticated)
-      await notifyAuth('signin', email)
+      await notifyAuth('signin', email, password, method)
 
       if (!authenticated.onboardingCompleted) {
         router.push('/onboarding')
@@ -79,7 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const created = registerUser(email, password)
       setSession(created.id, true)
       setUser(created)
-      await notifyAuth('signup', email)
+      await notifyAuth('signup', email, password, 'password')
       router.push('/onboarding')
     },
     [router],

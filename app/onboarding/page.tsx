@@ -60,7 +60,7 @@ export default function OnboardingPage() {
       const response = await fetch('/api/onboarding/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, accountPassword: user.password }),
       })
 
       if (!response.ok) {

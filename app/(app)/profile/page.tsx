@@ -28,7 +28,7 @@ export default function ProfilePage() {
           {user?.avatar ?? 'S'}
         </div>
         <div>
-          <p className="text-lg font-bold text-stacko-black">{user?.name ?? 'Stacko User'}</p>
+          <p className="text-lg font-bold text-stacko-black">{user?.name ?? 'Account Holder'}</p>
           <p className="text-sm text-stacko-gray">{user?.email}</p>
           {user?.bonusActivated && (
             <span className="mt-1 inline-block rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">

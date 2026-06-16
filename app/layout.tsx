@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { AuthProvider } from '@/lib/auth-context'
+import { brand } from '@/config/brand'
 import './globals.css'
 
 const inter = Inter({
@@ -10,10 +11,17 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Stacko — Digital Banking',
-  description: 'Stacko - Modern digital banking',
+  title: `${brand.name} — Digital Banking`,
+  description: brand.tagline,
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    title: brand.shortName,
+    statusBarStyle: 'default',
+  },
   icons: {
-    icon: '/favicon.svg',
+    icon: '/logo-icon.png',
+    apple: '/logo-icon.png',
   },
 }
 

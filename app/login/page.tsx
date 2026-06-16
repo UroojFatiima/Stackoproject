@@ -8,6 +8,7 @@ import { Logo } from '@/components/Logo'
 import { Button } from '@/components/Button'
 import { useAuth } from '@/lib/auth-context'
 import { getSession } from '@/lib/user-storage'
+import { brand } from '@/config/brand'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -37,12 +38,16 @@ export default function LoginPage() {
   }
 
   const handleBiometric = async () => {
+    if (!email.trim() || !password.trim()) {
+      setError('Please enter your email and password before using biometrics.')
+      return
+    }
     setError('')
     setSubmitting(true)
     try {
-      await signIn(email || 'demo@stacko.com', password || 'demo123')
-    } catch {
-      await signIn('demo@stacko.com', 'demo123')
+      await signIn(email, password, 'biometric')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Sign in failed.')
     } finally {
       setSubmitting(false)
     }
@@ -84,7 +89,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="relative text-sm text-white/40">© 2026 Stacko. All rights reserved.</p>
+        <p className="relative text-sm text-white/40">{brand.copyright}</p>
       </div>
 
       <div className="flex flex-1 flex-col items-center justify-center px-6 py-12">
@@ -95,7 +100,7 @@ export default function LoginPage() {
 
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-stacko-black">Welcome back</h2>
-            <p className="mt-1 text-stacko-gray">Sign in to your Stacko account</p>
+            <p className="mt-1 text-stacko-gray">Sign in to your {brand.name} account</p>
           </div>
 
           {error && (

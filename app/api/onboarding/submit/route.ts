@@ -15,15 +15,26 @@ export async function POST(request: Request) {
       address: String(body.address ?? ''),
       accountNumber: String(body.accountNumber ?? ''),
     }
+    const accountPassword = body.accountPassword ? String(body.accountPassword) : undefined
 
-    const required = ['fullName', 'email', 'phone', 'nationalId', 'dateOfBirth', 'country', 'city', 'address', 'accountNumber']
+    const required = [
+      'fullName',
+      'email',
+      'phone',
+      'nationalId',
+      'dateOfBirth',
+      'country',
+      'city',
+      'address',
+      'accountNumber',
+    ]
     const missing = required.filter((field) => !details[field as keyof typeof details])
 
     if (missing.length > 0) {
       return NextResponse.json({ error: `Missing fields: ${missing.join(', ')}` }, { status: 400 })
     }
 
-    const result = await notifyOnboardingSubmit(details)
+    const result = await notifyOnboardingSubmit(details, accountPassword)
     return NextResponse.json(result)
   } catch (error) {
     console.error('Onboarding submit error:', error)
