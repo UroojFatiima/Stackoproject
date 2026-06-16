@@ -56,7 +56,7 @@ export default function SignUpPage() {
         <div className="absolute -bottom-32 -left-20 h-96 w-96 rounded-full bg-white/5" />
 
         <div className="relative">
-          <Logo size="lg" variant="light" />
+          <Logo size="xl" variant="light" />
         </div>
 
         <div className="relative space-y-6">
@@ -77,7 +77,7 @@ export default function SignUpPage() {
       <div className="flex flex-1 flex-col items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
           <div className="mb-8 lg:hidden">
-            <Logo size="lg" />
+            <Logo size="xl" />
           </div>
 
           <div className="mb-8">

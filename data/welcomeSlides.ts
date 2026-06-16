@@ -29,4 +29,4 @@ export const welcomeSlides: WelcomeSlide[] = [
   },
 ]
 
-export const SLIDE_INTERVAL_MS = 5000
+export const SLIDE_INTERVAL_MS = 9000

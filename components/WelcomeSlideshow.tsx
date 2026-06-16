@@ -43,7 +43,7 @@ export function WelcomeSlideshow() {
         {welcomeSlides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+            className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
               index === activeIndex ? 'opacity-100' : 'opacity-0'
             }`}
           >
