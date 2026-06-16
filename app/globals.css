@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-stacko-red: #c11114;
+  --color-stacko-red-dark: #610e0f;
+  --color-stacko-red-light: #a12a26;
+  --color-stacko-cream: #faf8f8;
+  --color-stacko-gray: #9d999b;
+  --color-stacko-gray-dark: #5a5353;
+  --color-stacko-black: #130607;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply m-0 min-h-screen bg-stacko-cream font-sans text-stacko-black antialiased;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply rounded-2xl border border-white/20 bg-white/80 shadow-lg backdrop-blur-md;
+  }
+
+  .bento-card {
+    @apply rounded-2xl bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md;
+  }
+
+  .gradient-red {
+    background: linear-gradient(135deg, #c11114 0%, #610e0f 100%);
+  }
+}
